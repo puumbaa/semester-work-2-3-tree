@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "data_structure.hpp"
+#include "node.hpp"
 
 using namespace std;
 

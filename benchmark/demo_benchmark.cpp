@@ -1,4 +1,4 @@
-#include <fstream>      // ifstream
+.#include <fstream>      // ifstream
 #include <iostream>     // cout
 #include <string>       // string, stoi
 #include <string_view>  // string_view
@@ -6,7 +6,7 @@
 #include <sstream>      // stringstream
 
 // подключаем вашу структуру данных
-#include "data_structure.hpp"
+#include "node.hpp"
 
 using namespace std;
 using namespace itis;
