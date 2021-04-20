@@ -9,7 +9,7 @@
 namespace itis {
   struct Node {
    private:
-    int size;
+    int size_;
     int values[3];
     Node *parent_{nullptr};
     Node *first_{nullptr};
@@ -18,15 +18,11 @@ namespace itis {
     Node *fourth_{nullptr};
 
     explicit Node (int value, Node* parent, Node* first = nullptr, Node* second = nullptr,
-                  Node* third, Node* fourth );
+                  Node* third = nullptr, Node* fourth = nullptr );
 
     bool is_leaf();
 
     bool find(int value);
-
-    void sort2(int &a, int &b);
-
-    void sort3(int &a, int &b, int &c);
 
     void sort();
 
