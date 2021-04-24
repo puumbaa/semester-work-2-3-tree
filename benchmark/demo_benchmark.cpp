@@ -4,6 +4,8 @@
 #include <string_view>  // string_view
 #include <chrono>       // high_resolution_clock, duration_cast, nanoseconds
 #include <sstream>      // stringstream
+#include <vector>
+#include "data_structure.hpp"
 
 // подключаем вашу структуру данных
 #include "node.hpp"
@@ -15,55 +17,72 @@ using namespace itis;
 static constexpr auto kDatasetPath = string_view{PROJECT_DATASET_DIR};
 static constexpr auto kProjectPath = string_view{PROJECT_SOURCE_DIR};
 
-int main(int argc, char **argv) {
+int main() {
 
-  // Tip 1: входные аргументы позволяют более гибко контролировать работу вашей программы.
-  // Можете передать путь до входного/выходного тестового файла в качестве аргумента программы.
+//    // Tip 1: входные аргументы позволяют более гибко контролировать работу вашей программы.
+//    // Можете передать путь до входного/выходного тестового файла в качестве аргумента программы.
+//
+//    for (int index = 0; index < argc; index++) {
+//        cout << "Arg: " << argv[index] << '\n';
+//    }
 
-  for (int index = 0; index < argc; index++) {
-    cout << "Arg: " << argv[index] << '\n';
-  }
+    // Tip 2: для перевода строки в число можете использовать функцию stoi (string to integer)
 
-  // Tip 2: для перевода строки в число можете использовать функцию stoi (string to integer)
+    // можете использовать функционал класса stringstream для обработки строки
+//    auto ss = stringstream("0 1 2");  // передаете строку (входной аргумент или строку из файла) и обрабатываете ее
+//
+//    int number = 0;
+//    ss >> number;  // number = 0
+//    ss >> number;  // number = 1
+//    ss >> number;  // number = 2
 
-  // можете использовать функционал класса stringstream для обработки строки
-  auto ss = stringstream("0 1 2");  // передаете строку (входной аргумент или строку из файла) и обрабатываете ее
-
-  int number = 0;
-  ss >> number;  // number = 0
-  ss >> number;  // number = 1
-  ss >> number;  // number = 2
-
-  // работа с набором данных
-  const auto path = string(kDatasetPath);
-  cout << "Path to the 'dataset/' folder: " << path << endl;
-
-
+    // работа с набором данных
+    const auto path = string(kDatasetPath);
+    cout << "Path to the 'dataset/' folder: " << path << endl;
 
 
+    auto input_file = ifstream(path);
 
-  auto input_file = ifstream(path + "/dataset-example.csv");
-
-  if (input_file) {
+    string line;
+    vector<int> vector;
     // чтение и обработка набора данных ...
-  }
+    for (int i = 1; i <= 10; i++) {
+        input_file = ifstream(path + "\\data" + to_string(1) + ".csv");
+        while (getline(input_file, line, ',')) {
+            vector.push_back(stoi(line));
+        }
+    }
 
-  // Контрольный тест: операции добавления, удаления, поиска и пр. над структурой данных
+    // Контрольный тест: операции добавления, удаления, поиска и пр. над структурой данных
 
-  // Tip 3: время работы программы (или участка кода) можно осуществить
-  // как изнутри программы (std::chrono), так и сторонними утилитами
 
-  const auto time_point_before = chrono::steady_clock::now();
 
-  // здесь находится участок кода, время которого необходимо замерить
+    //создать файл csv и через новую строку туда пушить
 
-  const auto time_point_after = chrono::steady_clock::now();
+    // Tip 3: время работы программы (или участка кода) можно осуществить
+    // как изнутри программы (std::chrono), так и сторонними утилитами
 
-  // переводим время в наносекунды
-  const auto time_diff = time_point_after - time_point_before;
-  const auto time_elapsed_ns = chrono::duration_cast<chrono::nanoseconds>(time_diff).count();
 
-  cout << "Time elapsed (ns): " << time_elapsed_ns << '\n';
+    DataStructure *dataStructure = new DataStructure(new Node(0, nullptr, nullptr, nullptr));
 
-  return 0;
+
+    const auto time_point_before = chrono::steady_clock::now();
+
+for (int i = 0; i < vector.size(); i++) {
+
+   dataStructure->Insert(vector[i]);
+}
+
+
+    // здесь находится участок кода, время которого необходимо замерить
+
+    const auto time_point_after = chrono::steady_clock::now();
+
+    // переводим время в наносекунды
+    const auto time_diff = time_point_after - time_point_before;
+    const auto time_elapsed_ns = chrono::duration_cast<chrono::nanoseconds>(time_diff).count();
+
+    cout << "Time elapsed (ns): " << time_elapsed_ns << '\n';
+
+    return 0;
 }
