@@ -1,4 +1,4 @@
-.#include <fstream>      // ifstream
+#include <fstream>//
 #include <iostream>     // cout
 #include <string>       // string, stoi
 #include <string_view>  // string_view
@@ -37,6 +37,10 @@ int main(int argc, char **argv) {
   // работа с набором данных
   const auto path = string(kDatasetPath);
   cout << "Path to the 'dataset/' folder: " << path << endl;
+
+
+
+
 
   auto input_file = ifstream(path + "/dataset-example.csv");
 

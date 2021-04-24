@@ -1,86 +1,86 @@
 //
-// Created by user on 16.04.2021.
+// Created by annas on 14.04.2021.
 //
 #include "node.hpp"
+
 namespace itis {
-  Node::Node(int value, Node *parent, Node *first, Node *second, Node *third, Node *fourth):
-      size_(1), values{value, 0}, first_(first), second_(second),
-      third_(third), fourth_(fourth), parent_(parent) {}
 
+  Node::Node(int k, Node *first_, Node *second_, Node *third_, Node *fourth_, Node *parent_):
+      size(1), key (new int[k]), first(first_), second(second_),
+      third(third_), fourth(fourth_), parent(parent_) {}
 
-  bool Node::is_leaf() {  // Является ли узел листом; проверка используется при вставке и удалении.
-    return (first_ == nullptr) && (second_ == nullptr) && (third_ == nullptr);
+  bool Node::find(int k) {  // Этот метод возвращает true, если ключ k находится в вершине, иначе false.
+    for (int i = 0; i < size; ++i) {
+      if (key[i] == k) {
+        return true;
+      }
+    }
+    return false;
   }
 
-bool Node::find(int value) {  //Если значение есть в верщине, возвращается true, Иначе - false
-  for (int i = 0; i < size_; i ++) {
-    if (values[i] == value)
-      return true;
+  void Node::swap(int &x, int &y) { // поменять ключи местами, используется в сортировке
+    int r = x;
+    x = y;
+    y = r;
   }
-  return false;
-}
 
-  void Node::swap(int &a, int &b) { // (нужна для сортировки) менять клюяи местами
-    int temp = a;
-    a = b;
-    b = temp;
+  void Node::sort2(int &x, int &y) { // сортировка вершины с 2 ключами, используется в сортировке
+    if(x > y) {
+      swap(x, y);
+    }
+  }
+
+  void Node::sort3(int &x, int &y, int &z) { // сортировка вершины с 3 ключами, используется в сортировке
+    if(x > y) {
+      swap(x, y);
+    }
+    if(x > z) {
+      swap(x, z);
+    }
+    if(y > z) {
+      swap(y, z);
+    }
   }
 
   void Node::sort() { // Сортировка ключей в вершине по возрастанию
-    if(size_ == 2) {
-      if (values[0] > values[1])
-        swap(values[0], values[1]);
+    if(size == 1) {
+      return;
     }
-    if(size_ == 3) {
-      if(values[0] > values[1]) {
-        swap(values[0], values[1]);
-      }
-      if(values[0] > values[3]) {
-        swap(values[0], values[3]);
-      }
-      if(values[2] > values[3]) {
-        swap(values[2], values[3]);
-      }
+    if(size == 2) {
+      sort2(key[0], key[1]);
+    }
+    if(size == 3) {
+      sort3(key[0], key[1], key[2]);
     }
   }
 
-  void Node::insert_to_node(int value) {  // Вставка значение k в вершину
-    values[size_] = value;
-    size_++;
+  void Node::insert_to_node(int k) {  // Вставляем ключ k в вершину (не в дерево)
+    key[size] = k;
+    size++;
     sort();
   }
 
-  void Node::remove_from_node(int value) {  // Удаляем ключ value из вершины (не из дерева)
-    if (size_ >= 1 && values[0] == value) {
-      values[0] = values[1];
-      values[1] = 0;
-      size_--;
-    } else if (size_ == 2 && values[1] == value) {
-      values[1] = 0;
-      size_--;
+  void Node::remove_from_node(int k) {  // Удаляем ключ k из вершины (не из дерева)
+    if (size >= 1 && key[0] == k) {
+      key[0] = key[1];
+      key[1] = 0;
+      size--;
+    } else if (size == 2 && key[1] == k) {
+      key[1] = 0;
+      size--;
     }
   }
 
-    void Node::become_node2(int k, Node *first, Node *second) {  // Преобразовать в 2-вершину.
-      size_ = 1;
-      values[0] = k;
-      values[1] = 0;
-      first_ = first;
-      second_ = second;
-      third_ = nullptr;
-      parent_ = nullptr;
-    }
-
-
-
-
-
-
+  void Node::become_node2(int k, Node *first_, Node *second_) {  // Преобразовать в 2-вершину.
+    key[0] = k;
+    first = first_;
+    second = second_;
+    third = nullptr;
+    parent = nullptr;
+    size = 1;
   }
 
-
-
-
-
-
-}  // namespace itis
+  bool Node::is_leaf() const {  // Является ли вершина листом; проверка используется при вставке и удалении.
+    return (first == nullptr) && (second == nullptr) && (third == nullptr);
+  }
+};

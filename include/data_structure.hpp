@@ -1,32 +1,50 @@
-//
-// Created by user on 20.04.2021.
-//
 #pragma once
-#ifndef SEMESTER_WORK_TEMPLATE_DATA_STRUCTURE_HPP
-#define SEMESTER_WORK_TEMPLATE_DATA_STRUCTURE_HPP
 
-#endif  //SEMESTER_WORK_TEMPLATE_DATA_STRUCTURE_HPP
 #include "node.hpp"
+// Заголовочный файл с объявлением структуры данных
+
 namespace itis {
-  struct TwoThreeTree{
 
-    void Clear();
+  struct DataStructure {
 
-    void Insert(int k);
+    DataStructure(Node* node);
+    void Clear(); // Очистка дерева
 
-    TwoThreeNode *Search(int k);
+    void Insert(int k);// Вставка в дерево;
 
-    TwoThreeNode *Remove(int k);
+    Node *Search(int k); // Поиск в дереве;
 
-    TwoThreeNode *root();
+    void *Remove(int k); // Удаление ключа из дерева
 
-    int Height();
+    Node *root(); // Возвращает корень дерева
 
-    ~TwoThreeTree();
-
-
+    int Height(); // Возвращает высоту дерева
 
 
+    ~DataStructure(); // То же самое, что Clear
+
+
+   private:
+    Node *root_{nullptr}; // Корень 2-3 дерева
+
+    static Node *merge(Node *leaf); // Слияние используется при удалении;
+
+    Node *redistribute(Node *leaf); // Перераспределение также используется при удалении;
+
+    Node *fix(Node *leaf); // Используется после удаления для возвращения свойств дереву (использует merge или redistribute)
+
+    Node *split(Node *item); // Метод для разделение вершины при переполнении;
+
+    void insert(int k, Node *node); // Вспомогательная функция, используется при вставке
+
+    void clear(Node *node); // Вспомогательная функция, используется при очистке
+
+    Node *search(int k, Node *node); // Вспомогательная функция, используется при поиске
+
+    Node *remove(int k, Node *node); // Вспомогательная функуция, используется при удалении
+
+    int height(Node *node); // Вспомогательная функция, используется при вычислении высоты
+
+    Node *findMin(Node *p); // Поиск узла с минимальным значением ключа
   };
 }
-
