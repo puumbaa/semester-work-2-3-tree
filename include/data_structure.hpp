@@ -5,46 +5,47 @@
 
 namespace itis {
 
-  struct DataStructure {
+    struct DataStructure {
 
-    DataStructure(Node* node);
-    void Clear(); // Очистка дерева
+        DataStructure(Node* node);
+        void Clear(); // Очистка дерева
 
-    void Insert(int k);// Вставка в дерево;
+        void Insert(int k);// Вставка в дерево;
 
-    Node *Search(int k); // Поиск в дереве;
+        Node *Search(int k); // Поиск в дереве;
 
-    void *Remove(int k); // Удаление ключа из дерева
+        void *Remove(int k); // Удаление ключа из дерева
 
-    Node *root(); // Возвращает корень дерева
+        Node *root(); // Возвращает корень дерева
 
-    int Height(); // Возвращает высоту дерева
-
-
-    ~DataStructure(); // То же самое, что Clear
+        int Height(); // Возвращает высоту дерева
 
 
-   private:
-    Node *root_{nullptr}; // Корень 2-3 дерева
+        ~DataStructure(); // То же самое, что Clear
 
-    static Node *merge(Node *leaf); // Слияние используется при удалении;
 
-    Node *redistribute(Node *leaf); // Перераспределение также используется при удалении;
+    private:
+        Node *root_{nullptr}; // Корень 2-3 дерева
 
-    Node *fix(Node *leaf); // Используется после удаления для возвращения свойств дереву (использует merge или redistribute)
+        static Node *merge(Node *leaf); // Слияние используется при удалении;
 
-    Node *split(Node *item); // Метод для разделение вершины при переполнении;
+        Node *redistribute(Node *leaf); // Перераспределение также используется при удалении;
 
-    void insert(int k, Node *node); // Вспомогательная функция, используется при вставке
+        Node *fix(Node *leaf); // Используется после удаления для возвращения свойств дереву (использует merge или redistribute)
 
-    void clear(Node *node); // Вспомогательная функция, используется при очистке
+        static Node *split(Node *item); // Метод для разделение вершины при переполнении;
 
-    Node *search(int k, Node *node); // Вспомогательная функция, используется при поиске
+        void insert(int k, Node* node); // Вспомогательная функция, используется при вставке
 
-    Node *remove(int k, Node *node); // Вспомогательная функуция, используется при удалении
 
-    int height(Node *node); // Вспомогательная функция, используется при вычислении высоты
+        void clear(Node *node); // Вспомогательная функция, используется при очистке
 
-    Node *findMin(Node *p); // Поиск узла с минимальным значением ключа
-  };
+        Node *search(int k, Node *node); // Вспомогательная функция, используется при поиске
+
+        Node *remove(int k, Node *node); // Вспомогательная функуция, используется при удалении
+
+        int height(Node *node); // Вспомогательная функция, используется при вычислении высоты
+
+        Node *findMin(Node *p); // Поиск узла с минимальным значением ключа
+    };
 }

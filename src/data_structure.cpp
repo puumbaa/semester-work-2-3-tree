@@ -28,37 +28,36 @@ namespace itis {
         }
     }
 
-    void DataStructure::Insert(int k) {
-        if (root_ != nullptr) {
-            insert(k, root_);
-        } else {
-            root_ = new Node(k);
-        }
-    }
 
-    void DataStructure::insert(int k, Node *node) {
-
-        if (node->is_leaf()) {
-            node->insert_to_node(k);
-        } else if (k <= node->key[0]) {
-            insert(k, node->first);
-        } else if ((node->size == 1) || ((node->size == 2) && k <= node->key[1])) {
-            insert(k, node->second);
-        } else {
-            insert(k, node->third);
-        }
-        root_ = split(node);
+  void DataStructure::Insert(int k) {
+    if (root_ != nullptr) {
+      insert(k, root_);
+    } else {
+      root_ = new Node(k);
     }
+  }
+  void DataStructure::insert(int k, Node *node) {
+    if (node->is_leaf()) {
+      node->insert_to_node(k);
+    } else if (k <= node->key[0]) {
+      insert(k, node->first);
+    } else if ((node->size == 1) || ((node->size == 2) && k <= node->key[1])) {
+      insert(k, node->second);
+    } else {
+      insert(k, node->third);
+    }
+    root_ = split(node);
+  }
 
     Node *DataStructure::split(Node *item) {
         if (item->size < 3) {
             return item;
         }
 
-        auto x = new Node(item->key[0], item->first, item->second, nullptr, nullptr,
-                          item->parent);  // Создаем две новые вершины,
-        auto y = new Node(item->key[2], item->third, item->fourth, nullptr, nullptr,
-                          item->parent);  // которые имеют такого же родителя, как и разделяющийся элемент.
+        Node *x = new Node(item->key[0], item->first, item->second, nullptr, nullptr,
+                           item->parent);  // Создаем две новые вершины,
+        Node *y = new Node(item->key[2], item->third, item->fourth, nullptr, nullptr,
+                           item->parent);  // которые имеют такого же родителя, как и разделяющийся элемент.
         if (x->first) {
             x->first->parent = x;  // Правильно устанавливаем "родителя" "сыновей".
         }
@@ -98,13 +97,13 @@ namespace itis {
             }
 
             Node *tmp = item->parent;
-            delete[] item;
+            delete item;
             return tmp;
         }
-        x->parent = item;  // Так как в эту ветку попадает только корень,
-        y->parent = item;  // то мы "родителем" новых вершин делаем разделяющийся элемент.
-        item->become_node2(item->key[1], x, y);
-        return item;
+        item->become_node2(item->key[1], x, y); // убрали крайние элементы узла
+        x->parent = item;  // средний элемент стал родителем крайних
+        y->parent = item;
+        return item; // вернули средний элемент, теперь он корень
     }
 
     Node *DataStructure::Search(int k) {
@@ -311,8 +310,9 @@ namespace itis {
                     parent->key[0] = second->key[0];
                     second->remove_from_node(second->key[0]);
                     first->second = second->first;
-                    if (first->second != nullptr)
+                    if (first->second != nullptr) {
                         first->second->parent = first;
+                    }
                     second->first = second->second;
                     second->second = second->third;
                     second->third = nullptr;

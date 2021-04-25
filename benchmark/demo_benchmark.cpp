@@ -8,7 +8,7 @@
 #include "data_structure.hpp"
 
 // подключаем вашу структуру данных
-#include "node.hpp"
+#include "Node.hpp"
 
 using namespace std;
 using namespace itis;
@@ -45,44 +45,57 @@ int main() {
 
     string line;
     vector<int> vector;
-    // чтение и обработка набора данных ...
-    for (int i = 1; i <= 10; i++) {
-        input_file = ifstream(path + "\\data" + to_string(1) + ".csv");
-        while (getline(input_file, line, ',')) {
-            vector.push_back(stoi(line));
-        }
-    }
-
-    // Контрольный тест: операции добавления, удаления, поиска и пр. над структурой данных
-
-
-
-    //создать файл csv и через новую строку туда пушить
-
-    // Tip 3: время работы программы (или участка кода) можно осуществить
-    // как изнутри программы (std::chrono), так и сторонними утилитами
-
-
     DataStructure *dataStructure = new DataStructure(new Node(0, nullptr, nullptr, nullptr));
 
+    // чтение и обработка набора данных ...
+    for (int v = 0; v < 10; v++) {
+        input_file = ifstream(path + "\\data" + to_string(v) + ".csv");
+        while (getline(input_file, line, ',')) {
+            vector.push_back(stoi(line));
+            dataStructure->Insert(stoi(line));
+        }
 
-    const auto time_point_before = chrono::steady_clock::now();
-
-for (int i = 0; i < vector.size(); i++) {
-
-   dataStructure->Insert(vector[i]);
-}
 
 
-    // здесь находится участок кода, время которого необходимо замерить
 
-    const auto time_point_after = chrono::steady_clock::now();
+        // Контрольный тест: операции добавления, удаления, поиска и пр. над структурой данных
 
-    // переводим время в наносекунды
-    const auto time_diff = time_point_after - time_point_before;
-    const auto time_elapsed_ns = chrono::duration_cast<chrono::nanoseconds>(time_diff).count();
 
-    cout << "Time elapsed (ns): " << time_elapsed_ns << '\n';
+
+        //создать файл csv и через новую строку туда пушить
+
+        // Tip 3: время работы программы (или участка кода) можно осуществить
+        // как изнутри программы (std::chrono), так и сторонними утилитами
+
+
+
+
+        for (int j = 0; j < 10; j++) {
+
+            const auto time_point_before = chrono::steady_clock::now();
+
+            for (int i = 0; i < vector.size(); i++) {
+
+                dataStructure->Remove(vector[i]);
+            }
+
+
+            // здесь находится участок кода, время которого необходимо замерить
+
+            const auto time_point_after = chrono::steady_clock::now();
+
+            // переводим время в наносекунды
+
+            dataStructure->Clear();
+
+            const auto time_diff = time_point_after - time_point_before;
+            const auto time_elapsed_ns = chrono::duration_cast<chrono::nanoseconds>(time_diff).count();
+
+            //cout << "Time elapsed (ns): " << time_elapsed_ns << '\n';
+            cout << time_elapsed_ns / 1000000 << endl;
+        }
+    }
+    vector.clear();
 
     return 0;
 }
