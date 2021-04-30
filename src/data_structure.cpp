@@ -1,5 +1,5 @@
 #include "data_structure.hpp"
-#include "iostream"
+#include <iostream>
 
 using namespace std;
 
@@ -29,25 +29,26 @@ namespace itis {
     }
 
 
-  void DataStructure::Insert(int k) {
-    if (root_ != nullptr) {
-      insert(k, root_);
-    } else {
-      root_ = new Node(k);
+    void DataStructure::Insert(int k) {
+        if (root_ != nullptr) {
+            insert(k, root_);
+        } else {
+            root_ = new Node(k);
+        }
     }
-  }
-  void DataStructure::insert(int k, Node *node) {
-    if (node->is_leaf()) {
-      node->insert_to_node(k);
-    } else if (k <= node->key[0]) {
-      insert(k, node->first);
-    } else if ((node->size == 1) || ((node->size == 2) && k <= node->key[1])) {
-      insert(k, node->second);
-    } else {
-      insert(k, node->third);
+
+    void DataStructure::insert(int k, Node *node) {
+        if (node->is_leaf()) {
+            node->insert_to_node(k);
+        } else if (k <= node->key[0]) {
+            insert(k, node->first);
+        } else if ((node->size == 1) || ((node->size == 2) && k <= node->key[1])) {
+            insert(k, node->second);
+        } else {
+            insert(k, node->third);
+        }
+        root_ = split(node);
     }
-    root_ = split(node);
-  }
 
     Node *DataStructure::split(Node *item) {
         if (item->size < 3) {

@@ -6,11 +6,9 @@
 namespace itis {
 
 
-
-    Node::Node (int k, Node *first_, Node *second_,Node *third_, Node *fourth_, Node *parent_):
+    Node::Node(int k, Node *first_, Node *second_, Node *third_, Node *fourth_, Node *parent_) :
             size(1), key{k, 0, 0}, first(first_), second(second_),
             third(third_), fourth(fourth_), parent(parent_) {}
-
 
 
     bool Node::find(int k) {  // Этот метод возвращает true, если ключ k находится в вершине, иначе false.
@@ -29,29 +27,29 @@ namespace itis {
     }
 
     void Node::sort2(int &x, int &y) { // сортировка вершины с 2 ключами, используется в сортировке
-        if(x > y) swap(x, y);
+        if (x > y) swap(x, y);
     }
 
     void Node::sort3(int &x, int &y, int &z) { // сортировка вершины с 3 ключами, используется в сортировке
-        if(x > y) {
+        if (x > y) {
             swap(x, y);
         }
-        if(x > z) {
+        if (x > z) {
             swap(x, z);
         }
-        if(y > z) {
+        if (y > z) {
             swap(y, z);
         }
     }
 
     void Node::sort() { // Сортировка ключей в вершине по возрастанию
-        if(size == 1) {
+        if (size == 1) {
             return;
         }
-        if(size == 2) {
+        if (size == 2) {
             sort2(key[0], key[1]);
         }
-        if(size == 3) {
+        if (size == 3) {
             sort3(key[0], key[1], key[2]);
         }
     }
