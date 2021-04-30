@@ -1,6 +1,6 @@
 #pragma once
 
-#include "node.hpp"
+#include "Node.hpp"
 // Заголовочный файл с объявлением структуры данных
 
 namespace itis {
