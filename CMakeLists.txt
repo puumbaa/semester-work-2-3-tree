@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
 
 # Определите название вашего проекта (должно совпадать с названием репозитория).
 # Примечание: замените символ '-' на '_'.
-project(semester_work_template CXX)
+project(semester_work_2_3_tree CXX)
 
 # === Определение стандарта C++ для всего проекта ===
 
@@ -34,7 +34,7 @@ target_compile_definitions(project_paths INTERFACE
 # Это самое главное, что вы должны реализовать в рамках семестрового проекта.
 
 add_library(${PROJECT_NAME} STATIC
-        include/Node.hpp src/Node.cpp include/data_structure.hpp src/data_structure.cpp)
+        include/Node.hpp src/Node.cpp include/data_structure.hpp src/data_structure.cpp main.cpp)
 
 # включить предупреждения компилятора для библиотеки (линковка)
 target_link_libraries(${PROJECT_NAME} PRIVATE project_warnings)
