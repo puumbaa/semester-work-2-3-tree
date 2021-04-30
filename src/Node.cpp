@@ -81,4 +81,4 @@ namespace itis {
     bool Node::is_leaf() const {  // Является ли вершина листом; проверка используется при вставке и удалении.
         return (first == nullptr) && (second == nullptr) && (third == nullptr);
     }
-};
+}
