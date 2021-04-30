@@ -17,7 +17,7 @@ using namespace itis;
 static constexpr auto kDatasetPath = string_view{PROJECT_DATASET_DIR};
 static constexpr auto kProjectPath = string_view{PROJECT_SOURCE_DIR};
 
-int main() {
+int main3() {
 
     // работа с набором данных
     const auto path = string(kDatasetPath);
